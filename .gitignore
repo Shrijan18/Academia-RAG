@@ -1,0 +1,14 @@
+backend/data/
+backend/rag_test_data/
+backend/tests/
+backend/.env
+backend/test_data/
+backend/__pycache__/
+rag/
+node_modules/
+.env
+.env.local
+dist/
+.vite/
+.DS_Store
+Data/
