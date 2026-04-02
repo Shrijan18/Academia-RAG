@@ -11,11 +11,6 @@
 * **Multi-Modal Ingestion:** Native processing of academic **PDFs** (Syllabus/Schemes), **CSVs** (Result data), **Plain Text**, and **Audio** resources.
 * **Institutional Memory:** Implements a sliding-window context buffer that maintains conversation flow without losing the "thread" of complex academic queries.
 
-
-
-[Image of a RAG retrieval-augmented generation process]
-
-
 ---
 
 ### 🏗️ The Architecture
