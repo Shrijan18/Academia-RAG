@@ -1,75 +1,72 @@
-# Talos RAG: Enterprise Multi-Modal Intelligence
 
-Talos is a high-performance, production-grade Retrieval-Augmented Generation (RAG) system designed to provide deep intelligence across diverse enterprise data formats. It seamlessly integrates text, structured data, and audio into a unified reasoning engine with a high-end, responsive user interface.
-
-## 🚀 Key Features
-
-- **Multi-Modal Ingestion**: Native support for **PDFs**, **CSVs**, **Plain Text**, and **Audio** (MP3/WAV).
-- **Conversational Intelligence (STM)**: 
-    - Implements a **Source-Stripped Sliding Window** memory.
-    - Automates "Sticky Note" summarization to keep context alive while minimizing token usage.
-- **Advanced Knowledge Base**:
-    - **Folder-Based Navigation**: Data is categorized into smart folders (PDF, CSV, Audio, Text).
-    - **Real-Time Reconciliation**: Live sync between your physical root `Data` folder and the AI's memory.
-    - **Global Search**: Instant file filtering within the management UI.
-    - **Surgical Deletion**: Remove specific files and their mathematical vectors instantly.
-- **High-End UI/UX**:
-    - **Drive-Style Upload Panel**: Floating bottom-right dashboard to monitor background indexing progress.
-    - **Rich Text Support**: Full Markdown rendering with syntax-highlighted code blocks.
-    - **Compact Form Factor**: Redesigned, professional modals with high-fidelity glassmorphism.
-- **Acoustic Intelligence**: Dual-layer audio processing using **OpenAI Whisper** for transcription and **Wav2Vec2** for semantic acoustic feature extraction.
+# 🎓 Academia RAG: Precision Academic Intelligence
+**Academia RAG** is a high-fidelity, production-grade **Retrieval-Augmented Generation (RAG)** platform engineered specifically for the **Bhilai Institute of Technology**. It transforms static institutional data into a dynamic, role-aware reasoning engine, providing students and faculty with instant, cited academic clarity.
 
 ---
 
-## 🏗️ Architecture
+### 🚀 Core Capabilities
+* **Context-Aware Reasoning (CAR):** Beyond simple search—the system identifies your **Regulation Batch (R23, R24)** and filters the entire knowledge base to provide batch-specific syllabus and timetable data.
+* **Role-Based Access Control (RBAC):** * **Student/Teacher:** High-speed conversational interface for rapid information retrieval.
+    * **Admin:** A full-scale **Command Center** for knowledge management and vector maintenance.
+* **Multi-Modal Ingestion:** Native processing of academic **PDFs** (Syllabus/Schemes), **CSVs** (Result data), **Plain Text**, and **Audio** resources.
+* **Institutional Memory:** Implements a sliding-window context buffer that maintains conversation flow without losing the "thread" of complex academic queries.
 
-### **Reasoning Stack**
-1.  **Retrieval**: FAISS-powered similarity search using `all-MiniLM-L6-v2` embeddings.
-2.  **Reranking**: CPU-optimized reranking via **FlashRank** (TinyBERT) for maximum precision.
-3.  **Generation**: Powered by **Gemini 2.0 Flash** for state-of-the-art response generation.
 
-### **Backend (Python)**
-- **`api.py`**: The RESTful gateway (Port 8000) managing chat, status, and multi-file uploads.
-- **`engine.py`**: Orchestrates the RAG pipeline and manages Short-Term Memory state.
-- **`database.py`**: Manages FAISS vector stores with incremental SHA-256 hashing.
-- **`watcher.py`**: Background service for real-time root `Data` directory monitoring.
 
-### **Frontend (React + TypeScript)**
-- **Vite**: Ultra-fast build tool and development server.
-- **Framer Motion**: High-fidelity animations and transitions.
-- **Lenis**: Smooth inertial scrolling engine.
+[Image of a RAG retrieval-augmented generation process]
+
 
 ---
 
-## 🚦 Getting Started
+### 🏗️ The Architecture
+#### **The Reasoning Stack**
+* **Retrieval:** **FAISS-powered** similarity search utilizing `all-MiniLM-L6-v2` embeddings for semantic mapping.
+* **Reranking:** CPU-optimized **FlashRank (TinyBERT)** layer to ensure the most relevant academic chunk always hits the top.
+* **Generation:** Orchestrated by the **Gemini 2.5 API** for state-of-the-art natural language synthesis.
 
-### **1. Prerequisites**
-- Python 3.10+
-- Node.js 18+
-- A Google Gemini API Key
+#### **Backend (Python)**
+* `api.py`: The RESTful gateway (Port 8000) managing secure chat sessions and file uploads.
+* `database.py`: The "Librarian"—manages FAISS vector stores with incremental **SHA-256 hashing** to prevent redundant indexing.
+* `engine.py`: The brain that orchestrates the RAG pipeline and manages batch-specific metadata filtering.
 
-### **2. Backend Setup**
-1. Navigate to the `backend` folder: `cd backend`
-2. Activate your virtual environment and install dependencies:
-   ```bash
-   pip install -r requirements.txt
-   ```
-3. Set your `GOOGLE_API_KEY` in the `backend/.env` file.
-4. Launch the API: `python api.py`
-
-### **3. Frontend Setup**
-1. Navigate to the `Frontend` folder: `cd Frontend`
-2. Install dependencies: `npm install`
-3. Start the UI: `npm run dev`
+#### **Frontend (React + TypeScript)**
+* **Vite:** For ultra-fast, modern development and deployment.
+* **Framer Motion:** Powering high-fidelity UI transitions and "Glassmorphism" effects.
+* **Lucide React:** A comprehensive iconography set for a professional enterprise feel.
 
 ---
 
-## 📂 Knowledge Management
-- **The Data Root**: The system is connected to the **`D:\Coding\Talos_RAG\Data`** directory.
-- **Auto-Sync**: Any file dropped into this folder is automatically detected and indexed by the `watcher.py` service.
-- **Management**: Use the **Knowledge Base** button in the UI to search, filter, and purge files from the system.
+### 🚦 Getting Started
+#### **1. Prerequisites**
+* Python 3.10+ & Node.js 18+
+* A valid **Google Gemini API Key**
+
+#### **2. Backend Ignition**
+```bash
+cd backend
+python -m venv venv
+.\venv\Scripts\activate  # On Windows
+pip install -r requirements.txt
+python api.py
+```
+
+#### **3. Frontend Launch**
+```bash
+cd frontend
+npm install
+npm run dev
+```
 
 ---
 
-## 📜 License
-Internal Enterprise Use. (C) 2024 Talos Intelligence Systems.
+### 📂 Knowledge Management
+* **The Data Root:** Connected directly to the `C:\...\Talos_RAG\Data` directory.
+* **Regulation Partitioning:** Smart-folders categorized by **Regulation Year** (2023, 2024, 2025) to ensure zero cross-contamination of academic data.
+* **Surgical Purge:** Admins can instantly search, filter, and delete specific document vectors via the **Management UI** to keep the intelligence fresh.
+
+---
+
+### 📜 Institutional Notice
+**Developed for the 6th Semester Minor Project Milestone.** © 2026 Academia RAG Systems • Bhilai Institute of Technology (BIT).
+
+---
