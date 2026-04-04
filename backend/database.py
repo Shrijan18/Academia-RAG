@@ -1,3 +1,4 @@
+import time
 import os
 import faiss
 import pickle
@@ -22,13 +23,28 @@ audio_index_map = [] # To track which audio file belongs to which index in audio
 # Track processed files: { "file_path": { "hash": "...", "ids": [...] } }
 processed_files = {}
 
-def get_file_hash(file_path):
-    """Generates SHA-256 hash of a file to detect changes."""
-    hash_sha256 = hashlib.sha256()
-    with open(file_path, "rb") as f:
-        for chunk in iter(lambda: f.read(4096), b""):
-            hash_sha256.update(chunk)
-    return hash_sha256.hexdigest()
+
+def get_file_hash(file_path, retries=5, delay=0.5):
+    """Wait for file to be released by the OS before hashing."""
+    for i in range(retries):
+        try:
+            with open(file_path, "rb") as f:
+                # Your existing hashing logic here
+                return hashlib.md5(f.read()).hexdigest()
+        except PermissionError:
+            if i < retries - 1:
+                print(f"File locked by OS, retrying in {delay}s... ({i+1}/{retries})")
+                time.sleep(delay)
+            else:
+                raise # Re-raise if it still fails after all retries
+
+# def get_file_hash(file_path):
+#     """Generates SHA-256 hash of a file to detect changes."""
+#     hash_sha256 = hashlib.sha256()
+#     with open(file_path, "rb") as f:
+#         for chunk in iter(lambda: f.read(4096), b""):
+#             hash_sha256.update(chunk)
+#     return hash_sha256.hexdigest()
 
 def save_db():
     """Persists the database and tracking metadata to disk."""
@@ -143,7 +159,7 @@ def remove_file_from_db(file_path):
 # Use robust absolute pathing for Data directory
 SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__)) # D:\Coding\Talos_RAG\backend
 ROOT_DIR = os.path.dirname(SCRIPT_DIR) # D:\Coding\Talos_RAG
-DEFAULT_DATA_DIR = os.path.join(ROOT_DIR, "Data") # D:\Coding\Talos_RAG\Data\doc_train
+DEFAULT_DATA_DIR = os.path.join(ROOT_DIR, "Data") # D:\Coding\Talos_RAG\Data
 
 # def init_dbs(data_dir=None):
 #     """Scans the data directory and initializes everything."""

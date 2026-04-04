@@ -2,7 +2,7 @@ import { useState, useEffect, useRef, useLayoutEffect } from 'react';
 import {
   Send, Paperclip, Mic, Settings, Search, Plus, Moon, Sun,
   Database, MessageSquare, ChevronRight, User, Bot, Trash2,
-  FileText, Headphones, BarChart, ChevronLeft, Loader2, Upload, Eye, EyeOff,
+  FileText, Headphones, BarChart, ChevronLeft, Loader2, Upload,
   Copy, Check, X, Download
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -87,26 +87,18 @@ export default function App() {
   const [userRole, setUserRole] = useState<Role>('student');
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isInitializing, setIsInitializing] = useState(false); // New State
-  // Inside export default function App() { [cite: 13]
-  const [showLoginModal, setShowLoginModal] = useState(false);
-  const [selectedRole, setSelectedRole] = useState<Role | null>(null);
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
-  const [loginError, setLoginError] = useState('');
-  const [showPassword, setShowPassword] = useState(false);
 
-  const handleLoginAttempt = (role: Role) => {
+  const handleLoginAttempt = async (role: Role) => {
     if (role === 'student') {
-      handleLogin('student');
+      handleLogin('student'); // Students login directly
       return;
     }
-    // Open the new custom modal instead of prompt()
-    setSelectedRole(role);
-    setShowLoginModal(true);
-    setLoginError('');
-  };
 
-  const submitLogin = async () => {
+    const username = prompt(`Enter ${role} Username:`);
+    const password = prompt(`Enter ${role} Password:`);
+
+    if (!username || !password) return;
+
     try {
       const response = await fetch('http://localhost:8000/api/login', {
         method: 'POST',
@@ -117,15 +109,12 @@ export default function App() {
       const result = await response.json();
 
       if (result.success) {
-        setShowLoginModal(false);
-        setUsername('');
-        setPassword('');
         handleLogin(result.role as Role);
       } else {
-        setLoginError(result.message || "Invalid credentials.");
+        alert(result.message);
       }
     } catch (error) {
-      setLoginError("Authentication Server Error. Ensure api.py is running.");
+      alert("Authentication Server Error");
     }
   };
 
@@ -491,7 +480,7 @@ export default function App() {
                 ].map((role) => (
                   <button
                     key={role.id}
-                    onClick={() => handleLoginAttempt(role.id as Role)}
+                    onClick={() => handleLogin(role.id as Role)} /* Uses the handleLogin delay function */
                     style={{
                       display: 'flex',
                       alignItems: 'center',
@@ -526,101 +515,6 @@ export default function App() {
         <p style={{ position: 'absolute', bottom: '30px', fontSize: '12px', color: 'var(--text-tertiary)' }}>
           • Bhilai Institute of Technology, DURG •
         </p>
-
-        {/* Place this inside the <AnimatePresence> tag in the !isLoggedIn return */}
-        {showLoginModal && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            style={{
-              position: 'fixed', top: 0, left: 0, right: 0, bottom: 0,
-              background: 'rgba(0,0,0,0.85)', backdropFilter: 'blur(12px)',
-              display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 1000
-            }}
-          >
-            <motion.div
-              initial={{ scale: 0.9, y: 20 }}
-              animate={{ scale: 1, y: 0 }}
-              style={{
-                background: 'rgba(255,255,255,0.05)', padding: '40px', borderRadius: '24px',
-                border: '1px solid var(--border-glass)', width: '90%', maxWidth: '400px',
-                textAlign: 'center', boxShadow: '0 25px 50px rgba(0,0,0,0.5)'
-              }}
-            >
-              <h2 style={{ marginBottom: '8px', color: 'var(--text-primary)', textTransform: 'capitalize' }}>
-                {selectedRole} Portal
-              </h2>
-              <p style={{ color: 'var(--text-tertiary)', fontSize: '14px', marginBottom: '24px' }}>
-                Bhilai Institute of Technology Faculty Login
-              </p>
-
-              {loginError && (
-                <div style={{ color: '#ff4d4d', marginBottom: '16px', fontSize: '13px', background: 'rgba(255,77,77,0.1)', padding: '8px', borderRadius: '8px' }}>
-                  {loginError}
-                </div>
-              )}
-
-              <input
-                type="text" placeholder="Username"
-                value={username} onChange={(e) => setUsername(e.target.value)}
-                style={{ width: '100%', padding: '14px', marginBottom: '16px', borderRadius: '12px', border: '1px solid var(--border-glass)', background: 'rgba(0,0,0,0.3)', color: '#fff', outline: 'none' }}
-              />
-              <div style={{ position: 'relative', width: '100%', marginBottom: '24px' }}>
-                <input
-                  type={showPassword ? "text" : "password"}
-                  placeholder="Password"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  style={{
-                    width: '100%',
-                    padding: '14px',
-                    paddingRight: '45px', // 👈 Space so text doesn't go under the eye
-                    borderRadius: '12px',
-                    border: '1px solid var(--border-glass)',
-                    background: 'rgba(0,0,0,0.3)',
-                    color: '#fff',
-                    outline: 'none'
-                  }}
-                />
-                <button
-                  type="button"
-                  onClick={() => setShowPassword(!showPassword)}
-                  style={{
-                    position: 'absolute',
-                    right: '12px',
-                    top: '50%',
-                    transform: 'translateY(-50%)',
-                    background: 'none',
-                    border: 'none',
-                    color: 'var(--text-tertiary)',
-                    cursor: 'pointer',
-                    display: 'flex',
-                    alignItems: 'center'
-                  }}
-                >
-                  {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
-                </button>
-              </div>
-
-              <div style={{ display: 'flex', gap: '12px' }}>
-                <button
-                  onClick={() => setShowLoginModal(false)}
-                  style={{ flex: 1, padding: '12px', borderRadius: '12px', border: '1px solid var(--border-glass)', background: 'transparent', color: '#fff', cursor: 'pointer' }}
-                >
-                  Cancel
-                </button>
-                <button
-                  onClick={submitLogin}
-                  style={{ flex: 1, padding: '12px', borderRadius: '12px', background: 'var(--accent)', color: '#000', fontWeight: 700, border: 'none', cursor: 'pointer' }}
-                >
-                  Login
-                </button>
-              </div>
-            </motion.div>
-          </motion.div>
-        )}
-
       </div>
     );
   }

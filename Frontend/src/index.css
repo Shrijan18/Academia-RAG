@@ -6,6 +6,7 @@
   --bronze-400: #cfa86e;
   --bronze-500: #c5a059;
   --bronze-600: #a07d40;
+  --blue-600: linear-gradient(135deg, #6BB64A 0%, #2D5A27 100%);
   --bronze-700: #8d6b2d;
   --bronze-800: #6d5226;
   --bronze-900: #4a381a;
@@ -14,6 +15,16 @@
   --font-inter: 'Inter', system-ui, -apple-system, sans-serif;
 
   /* Light Theme */
+
+  /*
+  --bg-main: #fcfcfc;
+  --bg-glass: rgba(0, 0, 0, 0.04);
+  --border-glass: rgba(0, 0, 0, 0.08);
+  --text-primary: #121212;
+  --text-secondary: #161616;
+  --text-tertiary: #666666;
+  */
+
   --bg-primary: #ffffff;
   --bg-secondary: #f9f6f2;
   --bg-tertiary: #f2ece4;
@@ -21,16 +32,30 @@
   --bg-glass-strong: rgba(255, 255, 255, 0.9);
   --border-glass: rgba(141, 107, 45, 0.12);
   --text-primary: #2a200f;
-  --text-secondary: #6d5226;
-  --text-tertiary: #a07d40;
+  /* --text-secondary: #6d5226; */
+  --text-secondary: #266d44;
+  /* --text-tertiary: #a07d40; */
+  --text-tertiary: #6ba040;
   --accent: var(--bronze-600);
   --accent-rgb: 160, 125, 64;
-  --accent-gradient: linear-gradient(135deg, #c5a059 0%, #8d6b2d 100%);
+  --accent-gradient: linear-gradient(135deg, #00AEEF 0%, #949999 100%);
+  /* --accent-gradient: linear-gradient(135deg, #00AEEF 0%, #ffecb2 100%); */
+  /* --accent-gradient: linear-gradient(135deg, #acbd4f 0%, #FDC82F 100%); */
   --shadow-color: rgba(141, 107, 45, 0.08);
   --transition-speed: 0.3s;
 }
 
 [data-theme='dark'] {
+
+  /*
+  --bg-main: #0a0a0a;
+  --bg-glass: rgba(255, 255, 255, 0.03);
+  --border-glass: rgba(255, 255, 255, 0.1);
+  --text-primary: #ffffff;
+  --text-secondary: #a0a0a0;
+  --accent: #facc15;
+  */
+
   --bg-primary: #0f0d0a;
   --bg-secondary: #1a1612;
   --bg-tertiary: #241e17;
@@ -38,11 +63,15 @@
   --bg-glass-strong: rgba(15, 13, 10, 0.95);
   --border-glass: rgba(212, 175, 55, 0.15);
   --text-primary: #fdfbf7;
-  --text-secondary: #e0c8a0;
-  --text-tertiary: #c5a059;
-  --accent: var(--bronze-400);
+  /* --text-secondary: #e0c8a0; */
+  --text-secondary: #99b9dd;
+  /* --text-tertiary: #c5a059; */
+  --text-tertiary: #c7ddc3;
+  --accent: var(--blue-600);
   --accent-rgb: 207, 168, 110;
-  --accent-gradient: linear-gradient(135deg, #d4af37 0%, #8d6b2d 100%);
+  --accent-gradient: linear-gradient(135deg, #00AEEF 0%, #5b5f5f 100%);
+  /* --accent-gradient: linear-gradient(135deg, #00AEEF 0%, #FDC82F 100%); */
+  /* --accent-gradient: linear-gradient(135deg, #acbd4f 0%, #FDC82F 100%); */
   --shadow-color: rgba(0, 0, 0, 0.5);
 }
 
@@ -1161,7 +1190,6 @@ code:not([class*="language-"]) {
 /* --- Sidebar Responsive Logic Fix --- */
 
 .sidebar {
-  background: var(--bg-sidebar);
   border-right: 1px solid var(--border-glass);
   display: flex;
   flex-direction: column;
@@ -1196,9 +1224,15 @@ code:not([class*="language-"]) {
     width: 75vw;
     /* Covers 75% of the screen */
     max-width: 300px;
-    /* Limits size on large tablets */
-    z-index: 100;
+    /* This moves it off-screen by default on small screens */
+    transform: translateX(-100%); 
+    z-index: 1000;
     box-shadow: 20px 0 50px rgba(0, 0, 0, 0.7);
+  }
+
+  /* This class will be added by React when you click the arrow */
+  .sidebar.open {
+    transform: translateX(0);
   }
 
   .mobile-backdrop {

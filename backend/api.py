@@ -1,11 +1,19 @@
 import os
 import threading
+from flask import send_file
+from flask import send_from_directory
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 import database
 import engine
 import watcher
 from config import DEVICE
+from flask import send_from_directory, abort
+from urllib.parse import unquote
+import sqlite3
+from flask import request, jsonify
+from werkzeug.security import check_password_hash
+import os
 
 app = Flask(__name__)
 CORS(app, resources={r"/*": {"origins": "*"}}) # Explicitly allow all origins for local dev
@@ -14,6 +22,30 @@ CORS(app, resources={r"/*": {"origins": "*"}}) # Explicitly allow all origins fo
 SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__)) 
 ROOT_DIR = os.path.dirname(SCRIPT_DIR) 
 DATA_DIR = os.path.join(ROOT_DIR, "Data") 
+
+@app.route('/api/login', methods=['POST'])
+def login():
+    data = request.json
+    username = data.get('username')
+    password = data.get('password')
+
+    # 1. Connect to the real database file
+    conn = sqlite3.connect('users.db')
+    cursor = conn.cursor()
+    
+    # 2. Search for the user
+    cursor.execute("SELECT password_hash, role FROM users WHERE username = ?", (username,))
+    user = cursor.fetchone()
+    conn.close()
+
+    # 3. Verify the hashed password
+    if user and check_password_hash(user[0], password):
+        return jsonify({
+            "success": True, 
+            "role": user[1] 
+        })
+    
+    return jsonify({"success": False, "message": "Invalid Credentials"}), 401
 
 def startup_logic():
     """Initializes the database and starts the file watcher."""
@@ -118,6 +150,25 @@ def upload_file():
         count += 1
     
     return jsonify({"message": f"Successfully uploaded {count} files for indexing."}), 201
+
+
+@app.route('/download/<path:filename>')
+def download_file(filename):
+    # 1. Decode the URL (turns %20 back into spaces)
+    decoded_name = unquote(filename)
+    
+    # 2. Your EXACT Data directory
+    data_dir = r"C:\Users\shrij\Desktop\desktop\minor 6th sem\talos\Talos_RAG\Data"
+    
+    # 3. Check if file actually exists before sending
+    file_path = os.path.join(data_dir, decoded_name)
+    print(f"DEBUG: Attempting to serve: {file_path}") # Check your terminal for this!
+
+    if os.path.exists(file_path):
+        return send_from_directory(data_dir, decoded_name, as_attachment=True)
+    else:
+        print(f"DEBUG: File not found at {file_path}")
+        return f"File '{decoded_name}' not found on BIT Server.", 404
 
 if __name__ == '__main__':
     startup_logic()
