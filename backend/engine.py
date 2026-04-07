@@ -133,9 +133,9 @@ def chatbot(query):
     # 3. Context Construction
     context_text = "\n\n".join([f"[{d.metadata.get('source', 'Unknown')}]\n{d.page_content}" for d in reranked_docs])
 
-    print("HISTORY:\n", history_context, flush=True)
-    print("\nCONTEXT:\n", context_text, flush=True)
-    print("\nUSER QUERY:\n", query, flush=True)
+    # print("HISTORY:\n", history_context, flush=True)
+    # print("\nCONTEXT:\n", context_text, flush=True)
+    # print("\nUSER QUERY:\n", query, flush=True)
 
     
     # 4. LLM Generation with Memory

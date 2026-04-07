@@ -154,7 +154,7 @@ export default function App() {
   const [history] = useState<ChatHistory[]>([
     { id: '1', title: 'Syllabus', date: new Date() },
     { id: '2', title: 'Fees', date: new Date(Date.now() - 86400000) },
-    { id: '3', title: 'IT Department', date: new Date(Date.now() - 172800000) },
+    { id: '3', title: 'About Department', date: new Date(Date.now() - 172800000) },
   ]);
 
   const scrollRef = useRef<HTMLDivElement>(null);

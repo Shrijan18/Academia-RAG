@@ -1,17 +1,19 @@
+import os
+import re
 import pandas as pd
 import librosa
 import numpy as np
 import torch
 import requests
+import pdfplumber
+import chardet
+import trafilatura
 from bs4 import BeautifulSoup
 from urllib.parse import urljoin
 from collections import deque
-from langchain_community.document_loaders import PyMuPDFLoader
-from langchain_text_splitters import RecursiveCharacterTextSplitter
 from langchain_core.documents import Document
+from langchain_text_splitters import RecursiveCharacterTextSplitter
 from config import whisper_model, wav2vec_processor, wav2vec_model, DEVICE
-
-import re
 
 def clean_text(text):
     """
@@ -25,23 +27,58 @@ def clean_text(text):
     return text.strip()
 
 def load_pdf(file_path):
+    """
+    Advanced PDF loader using pdfplumber for table-aware extraction.
+    Includes automated semester tagging for metadata filtering.
+    """
+    docs = []
+    print(f"Processing PDF: {file_path}")
+    
     try:
-        print(f"Processing PDF: {file_path}")
-        loader = PyMuPDFLoader(file_path)
-        pages = loader.load()
-        
-        splitter = RecursiveCharacterTextSplitter(
-            chunk_size=1000, # ~250 tokens, ideal for MiniLM
-            chunk_overlap=150,
-            separators=["\n\n", "\n", ".", " ", ""]
-        )
-        docs = splitter.split_documents(pages)
-        
-        # Sanitize and filter
-        for doc in docs:
-            doc.page_content = clean_text(doc.page_content)
-            
-        return [d for d in docs if len(d.page_content) > 20] # Filter junk
+        with pdfplumber.open(file_path) as pdf:
+            for i, page in enumerate(pdf.pages):
+                text = page.extract_text() or ""
+                
+                # --- Semester Tagging Logic ---
+                # This helps the RAG engine distinguish between 7th and 8th sem data
+                semester_tag = "unknown"
+                if re.search(r"Seventh Semester", text, re.IGNORECASE) or re.search(r"7th Semester", text, re.IGNORECASE):
+                    semester_tag = "7"
+                elif re.search(r"Eighth Semester", text, re.IGNORECASE) or re.search(r"8th Semester", text, re.IGNORECASE):
+                    semester_tag = "8"
+                elif re.search(r"Sixth Semester", text, re.IGNORECASE) or re.search(r"6th Semester", text, re.IGNORECASE):
+                    semester_tag = "6"
+                elif re.search(r"Fifth Semester", text, re.IGNORECASE) or re.search(r"5th Semester", text, re.IGNORECASE):
+                    semester_tag = "5"
+
+                # --- Table Extraction ---
+                tables = page.extract_tables()
+                table_text = ""
+                if tables:
+                    for table in tables:
+                        for row in table:
+                            # Join row elements with a pipe to preserve column structure
+                            clean_row = [str(item).replace('\n', ' ') for item in row if item is not None]
+                            table_text += " | ".join(clean_row) + "\n"
+                
+                # Combine standard text with the preserved table structure
+                combined_content = f"Source: {os.path.basename(file_path)}\n"
+                combined_content += f"Semester Context: {semester_tag}\n"
+                combined_content += f"Page: {i+1}\n"
+                combined_content += (text or "") + "\n\nTable Data:\n" + table_text
+                
+                # Append with semantic metadata
+                docs.append(Document(
+                    page_content=combined_content, 
+                    metadata={
+                        "source": file_path, 
+                        "page": i+1, 
+                        "semester": semester_tag,
+                        "type": "pdf"
+                    }
+                ))
+                
+        return docs
     except Exception as e:
         print(f"Error loading PDF {file_path}: {e}")
         return []
@@ -52,14 +89,12 @@ def load_csv(file_path):
         df = pd.read_csv(file_path)
         
         documents = []
-        # If a row is massive, we might need a safety splitter
         safety_splitter = RecursiveCharacterTextSplitter(chunk_size=1000, chunk_overlap=100)
 
         for index, row in df.iterrows():
             content = " | ".join([f"{col}: {val}" for col, val in row.items()])
             content = clean_text(content)
             
-            # Create documents (split if row is abnormally long)
             row_docs = safety_splitter.create_documents(
                 [content], 
                 metadatas=[{"source": file_path, "row": index, "type": "csv"}]
@@ -70,16 +105,11 @@ def load_csv(file_path):
     except Exception as e:
         print(f"Error loading CSV {file_path}: {e}")
         return []
+        
 def load_audio(file_path):
-    """
-    Optimized Audio processor. 
-    Returns transcribed text as Documents and a global audio feature embedding.
-    """
     try:
         print(f"Processing Audio: {file_path}")
 
-        # 1. High-quality Transcription with Whisper
-        # Using beam_size=5 for better accuracy, and fp16 adjustment based on device
         result = whisper_model.transcribe(
             file_path, 
             word_timestamps=True,
@@ -87,11 +117,7 @@ def load_audio(file_path):
             fp16=(DEVICE.type == "cuda") 
         )
 
-        # 2. Extract global audio features with Wav2Vec2 (Memory Safe)
         audio, sr = librosa.load(file_path, sr=16000)
-
-        # If audio is very long, we take a representative 30s sample from the middle 
-        # to avoid OOM while still capturing the acoustic 'vibe' of the file.
         max_samples = 16000 * 30 
         if len(audio) > max_samples:
             start_sample = len(audio) // 2 - (max_samples // 2)
@@ -105,7 +131,6 @@ def load_audio(file_path):
         with torch.no_grad():
             audio_embedding = wav2vec_model(**inputs).last_hidden_state.mean(dim=1).squeeze().cpu().numpy()
 
-        # 3. Create Documents from segments
         segments = result.get("segments", [])
         documents = []
 
@@ -132,31 +157,22 @@ def load_audio(file_path):
         print(f"Error loading Audio {file_path}: {e}")
         return [], None
 
-import chardet
-
 def load_txt(file_path):
-    """
-    Robust text loader with automatic encoding detection.
-    Uses RecursiveCharacterTextSplitter for RAG-friendly chunking.
-    """
     try:
         print(f"Processing Text: {file_path}")
         
-        # 1. Detect encoding (essential for production-grade loaders)
         with open(file_path, "rb") as f:
             raw_data = f.read()
             encoding = chardet.detect(raw_data)["encoding"] or "utf-8"
         
         text = raw_data.decode(encoding)
         
-        # 2. Split text into chunks
         splitter = RecursiveCharacterTextSplitter(
             chunk_size=1000,
             chunk_overlap=150,
             separators=["\n\n", "\n", ".", " ", ""]
         )
         
-        # 3. Create Documents
         chunks = splitter.split_text(text)
         documents = []
         for i, chunk in enumerate(chunks):
@@ -174,19 +190,11 @@ def load_txt(file_path):
         print(f"Error loading Text {file_path}: {e}")
         return []
 
-import trafilatura
-
 def extract_text_iteratively(start_url, max_pages=10, max_depth=1):
-    """
-    Optimized Web Scraper for RAG.
-    Uses trafilatura for 'main content' extraction (ignoring ads/nav).
-    Returns a list of LangChain Document objects.
-    """
     visited_links = set()
     queue = deque([(start_url, 0)])
     documents = []
     
-    # Common headers to avoid 403 Forbidden
     headers = {
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36"
     }
@@ -202,18 +210,14 @@ def extract_text_iteratively(start_url, max_pages=10, max_depth=1):
 
         visited_links.add(url)
         try:
-            # 1. Fetch content
             response = requests.get(url, headers=headers, timeout=10)
             response.raise_for_status()
 
-            # 2. Extract clean content using trafilatura
-            # This is much better than soup.get_text() as it targets 'main' article text
             downloaded = trafilatura.fetch_url(url)
-            clean_text = trafilatura.extract(downloaded, include_comments=False, include_tables=True)
+            clean_text_content = trafilatura.extract(downloaded, include_comments=False, include_tables=True)
 
-            if clean_text:
-                # 3. Create chunks and Documents
-                chunks = splitter.split_text(clean_text)
+            if clean_text_content:
+                chunks = splitter.split_text(clean_text_content)
                 for chunk in chunks:
                     documents.append(Document(
                         page_content=chunk,
@@ -224,12 +228,10 @@ def extract_text_iteratively(start_url, max_pages=10, max_depth=1):
                         }
                     ))
 
-            # 4. Find nested links (only if depth permits)
             if depth < max_depth:
                 soup = BeautifulSoup(response.text, "html.parser")
                 for link in soup.find_all("a", href=True):
                     nested_url = urljoin(url, link["href"])
-                    # Only follow internal links
                     if nested_url.startswith(start_url) and nested_url not in visited_links:
                         queue.append((nested_url, depth + 1))
 

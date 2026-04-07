@@ -19,9 +19,9 @@ def init_db():
     # Data for your 1 Admin and 8 Teachers
     accounts = [
         ("admin_bit", "admin123", "admin"),
-        ("it_01", "teach2026", "teacher"),
-        ("it_02", "teach2026", "teacher"),
-        ("it_03", "teach2026", "teacher"),
+        ("Nikita Mam", "teach2026", "teacher"),
+        ("Chaitali Mam", "teach2026", "teacher"),
+        ("teacher_03", "teach2026", "teacher"),
         # ... add more as needed
     ]
 
