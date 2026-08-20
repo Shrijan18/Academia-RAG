@@ -36,51 +36,97 @@ def load_pdf(file_path):
     
     try:
         with pdfplumber.open(file_path) as pdf:
+            total_pages = len(pdf.pages)
+            print(f"  Pages to process: {total_pages}")
+            
             for i, page in enumerate(pdf.pages):
                 text = page.extract_text() or ""
+                # Normalize text: remove redundant whitespace
+                text = clean_text(text)
                 
-                # --- Semester Tagging Logic ---
-                # This helps the RAG engine distinguish between 7th and 8th sem data
+                # --- Semester Tagging Logic (Complete 1-8) ---
+                # This helps the RAG engine distinguish between different semester data
                 semester_tag = "unknown"
-                if re.search(r"Seventh Semester", text, re.IGNORECASE) or re.search(r"7th Semester", text, re.IGNORECASE):
-                    semester_tag = "7"
-                elif re.search(r"Eighth Semester", text, re.IGNORECASE) or re.search(r"8th Semester", text, re.IGNORECASE):
-                    semester_tag = "8"
-                elif re.search(r"Sixth Semester", text, re.IGNORECASE) or re.search(r"6th Semester", text, re.IGNORECASE):
-                    semester_tag = "6"
-                elif re.search(r"Fifth Semester", text, re.IGNORECASE) or re.search(r"5th Semester", text, re.IGNORECASE):
-                    semester_tag = "5"
+                semester_patterns = {
+                    "1": [r"First Semester", r"1st Semester", r"sem\s*1"],
+                    "2": [r"Second Semester", r"2nd Semester", r"sem\s*2"],
+                    "3": [r"Third Semester", r"3rd Semester", r"sem\s*3"],
+                    "4": [r"Fourth Semester", r"4th Semester", r"sem\s*4"],
+                    "5": [r"Fifth Semester", r"5th Semester", r"sem\s*5"],
+                    "6": [r"Sixth Semester", r"6th Semester", r"sem\s*6"],
+                    "7": [r"Seventh Semester", r"7th Semester", r"sem\s*7"],
+                    "8": [r"Eighth Semester", r"8th Semester", r"sem\s*8"],
+                }
+                
+                for sem_num, patterns in semester_patterns.items():
+                    for pattern in patterns:
+                        if re.search(pattern, text, re.IGNORECASE):
+                            semester_tag = sem_num
+                            break
+                    if semester_tag != "unknown":
+                        break
 
-                # --- Table Extraction ---
+                # --- Table Extraction with Markdown Format ---
                 tables = page.extract_tables()
                 table_text = ""
+                has_tables = False
+                
                 if tables:
+                    has_tables = True
                     for table in tables:
-                        for row in table:
-                            # Join row elements with a pipe to preserve column structure
-                            clean_row = [str(item).replace('\n', ' ') for item in row if item is not None]
-                            table_text += " | ".join(clean_row) + "\n"
+                        if not table or len(table) == 0:
+                            continue
+                        
+                        # Create markdown table with proper formatting
+                        headers = [str(cell).replace('\n', ' ').strip() for cell in table[0] if cell is not None]
+                        if not headers:
+                            continue
+                            
+                        table_text += "| " + " | ".join(headers) + " |\n"
+                        table_text += "|" + ("---|" * len(headers)) + "\n"
+                        
+                        # Process data rows
+                        for row in table[1:]:
+                            cells = [str(cell).replace('\n', ' ').replace('|', '\\|').strip() if cell is not None else "" for cell in row]
+                            # Pad cells to match header count
+                            while len(cells) < len(headers):
+                                cells.append("")
+                            table_text += "| " + " | ".join(cells[:len(headers)]) + " |\n"
+                        table_text += "\n"
                 
-                # Combine standard text with the preserved table structure
-                combined_content = f"Source: {os.path.basename(file_path)}\n"
-                combined_content += f"Semester Context: {semester_tag}\n"
-                combined_content += f"Page: {i+1}\n"
-                combined_content += (text or "") + "\n\nTable Data:\n" + table_text
+                # --- Skip Empty Pages (No Content + No Tables) ---
+                if not text.strip() and not has_tables:
+                    print(f"  Skipping page {i+1}: Empty (no text or tables)")
+                    continue
                 
-                # Append with semantic metadata
+                # Combine text and tables (NO metadata in page_content)
+                combined_content = text
+                if table_text.strip():
+                    combined_content += "\n\n**Tables:**\n" + table_text
+                
+                # Append with semantic metadata (metadata ONLY in metadata dict)
                 docs.append(Document(
                     page_content=combined_content, 
                     metadata={
                         "source": file_path, 
                         "page": i+1, 
                         "semester": semester_tag,
-                        "type": "pdf"
+                        "type": "pdf",
+                        "has_tables": has_tables,
+                        "filename": os.path.basename(file_path)
                     }
                 ))
                 
+        print(f"  Successfully processed {len(docs)} non-empty pages from PDF")
         return docs
+    except pdfplumber.PDFLoadError as e:
+        print(f"❌ Error: PDF is encrypted, corrupted, or invalid: {file_path}")
+        return []
+    except PermissionError as e:
+        print(f"❌ Error: Permission denied reading PDF {file_path}")
+        return []
     except Exception as e:
-        print(f"Error loading PDF {file_path}: {e}")
+        print(f"❌ Error loading PDF {file_path}: {type(e).__name__}: {e}")
         return []
 
 def load_csv(file_path):
