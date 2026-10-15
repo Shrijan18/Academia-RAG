@@ -9,9 +9,13 @@ from langchain_core.documents import Document
 from config import embeddings
 from processors import load_pdf, load_csv, load_audio, load_txt
 
-# Configuration
-DB_PATH = "faiss_index"
-METADATA_PATH = "faiss_metadata.pkl"
+# Robust pathing configuration
+SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
+ROOT_DIR = os.path.dirname(SCRIPT_DIR)
+DEFAULT_DATA_DIR = os.path.join(ROOT_DIR, "Data")
+DB_PATH = os.path.join(SCRIPT_DIR, "faiss_index")
+METADATA_PATH = os.path.join(SCRIPT_DIR, "faiss_metadata.pkl")
+AUDIO_INDEX_PATH = os.path.join(SCRIPT_DIR, "audio_features.index")
 
 # Global Storage
 # text_db: Combined store for PDF, CSV, TXT, and Web
@@ -59,7 +63,7 @@ def save_db():
         pickle.dump(metadata, f)
     
     if audio_index:
-        faiss.write_index(audio_index, "audio_features.index")
+        faiss.write_index(audio_index, AUDIO_INDEX_PATH)
     print("Database and metadata saved locally.")
 
 def load_db():
@@ -77,8 +81,8 @@ def load_db():
             audio_index_map = metadata.get("audio_index_map", [])
         print("Loaded Ingestion Metadata.")
 
-    if os.path.exists("audio_features.index"):
-        audio_index = faiss.read_index("audio_features.index")
+    if os.path.exists(AUDIO_INDEX_PATH):
+        audio_index = faiss.read_index(AUDIO_INDEX_PATH)
         print("Loaded Audio Feature Index.")
     else:
         audio_index = faiss.IndexFlatL2(768)
@@ -93,9 +97,22 @@ def add_file_to_db(file_path):
     current_hash = get_file_hash(file_path)
     file_ext = os.path.splitext(file_path)[-1].lower()
     
-    # Check if file is already processed and unchanged
-    if file_path in processed_files and processed_files[file_path]["hash"] == current_hash:
-        print(f"Skipping {os.path.basename(file_path)} (Unchanged)")
+    filename = os.path.basename(file_path)
+    
+    # Check if file is already processed and unchanged (supports cross-platform path migration)
+    matched_key = None
+    if file_path in processed_files:
+        matched_key = file_path
+    else:
+        for stored_path in list(processed_files.keys()):
+            if os.path.basename(stored_path) == filename:
+                matched_key = file_path
+                processed_files[file_path] = processed_files.pop(stored_path)
+                save_db()
+                break
+
+    if matched_key and processed_files.get(file_path, {}).get("hash") == current_hash:
+        print(f"Skipping {filename} (Unchanged)")
         return False
 
     # Remove old version if it exists

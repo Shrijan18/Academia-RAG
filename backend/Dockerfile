@@ -30,4 +30,4 @@ ENV PORT=8000
 EXPOSE 8000
 
 # Launch Gunicorn server
-CMD exec gunicorn --bind 0.0.0.0:$PORT --workers 1 --timeout 180 api:app
+CMD ["sh", "-c", "exec gunicorn --bind 0.0.0.0:${PORT:-8000} --workers 1 --timeout 180 api:app"]

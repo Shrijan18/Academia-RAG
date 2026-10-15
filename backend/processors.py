@@ -13,7 +13,7 @@ from urllib.parse import urljoin
 from collections import deque
 from langchain_core.documents import Document
 from langchain_text_splitters import RecursiveCharacterTextSplitter
-from config import whisper_model, wav2vec_processor, wav2vec_model, DEVICE
+from config import get_whisper_model, get_wav2vec, DEVICE
 
 def clean_text(text):
     """
@@ -155,6 +155,8 @@ def load_csv(file_path):
 def load_audio(file_path):
     try:
         print(f"Processing Audio: {file_path}")
+        whisper_model = get_whisper_model()
+        wav2vec_processor, wav2vec_model = get_wav2vec()
 
         result = whisper_model.transcribe(
             file_path, 

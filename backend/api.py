@@ -27,6 +27,14 @@ SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
 ROOT_DIR = os.path.dirname(SCRIPT_DIR) 
 DATA_DIR = os.path.join(ROOT_DIR, "Data") 
 
+@app.route('/', methods=['GET'])
+def health():
+    return jsonify({
+        "status": "online",
+        "service": "Academia RAG Backend",
+        "message": "Server is healthy and ready to accept requests."
+    }), 200
+
 @app.route('/api/login', methods=['POST'])
 def login():
     data = request.json

@@ -20,7 +20,8 @@ import database
 from flashrank import Ranker, RerankRequest
 
 # Initialize FlashRank (Optimized for CPU speed)
-ranker = Ranker(model_name="ms-marco-TinyBERT-L-2-v2", cache_dir="opt_models")
+SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
+ranker = Ranker(model_name="ms-marco-TinyBERT-L-2-v2", cache_dir=os.path.join(SCRIPT_DIR, "opt_models"))
 
 # DEBUG: Verify the key is actually loaded
 if not API_KEY:
