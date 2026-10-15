@@ -1,9 +1,10 @@
+--extra-index-url https://download.pytorch.org/whl/cpu
+torch
 flask
 flask-cors
 gunicorn
 pandas
 numpy
-torch
 faiss-cpu
 transformers
 sentence-transformers

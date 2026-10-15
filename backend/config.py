@@ -4,6 +4,12 @@ import warnings
 from dotenv import load_dotenv
 from langchain_huggingface import HuggingFaceEmbeddings
 
+# Restrict PyTorch to single thread to conserve memory and avoid thread spikes on Render
+try:
+    torch.set_num_threads(1)
+except Exception:
+    pass
+
 # Load environment variables from .env
 load_dotenv()
 

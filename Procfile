@@ -1,1 +1,1 @@
-web: cd backend && gunicorn --bind 0.0.0.0:$PORT --workers 1 --timeout 180 api:app
+web: cd backend && gunicorn --bind 0.0.0.0:$PORT --workers 1 --worker-class sync --timeout 300 api:app

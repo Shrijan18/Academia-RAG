@@ -100,6 +100,14 @@ def handle_chat():
     user_query = data.get("query")
     if not user_query:
         return jsonify({"error": "No query provided"}), 400
+
+    # Wait up to 15 seconds if database is still initializing on cold start
+    import time
+    for _ in range(30):
+        if database.text_db is not None:
+            break
+        time.sleep(0.5)
+
     try:
         result = engine.chatbot(user_query)
         ans = result.get("answer") or result.get("response", "")
@@ -200,8 +208,9 @@ def download_file(filename):
         print(f"DEBUG: File not found at {file_path}")
         return f"File '{decoded_name}' not found on BIT Server.", 404
 
-# Initialize knowledge base and database upon server startup
-startup_logic()
+# Initialize knowledge base and database asynchronously upon startup
+# This ensures Gunicorn binds port 10000 immediately without blocking health checks
+threading.Thread(target=startup_logic, daemon=True).start()
 
 if __name__ == '__main__':
     port = int(os.environ.get("PORT", 8000))
