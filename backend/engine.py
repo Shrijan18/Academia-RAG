@@ -1,6 +1,15 @@
 import os
+import sys
 import time
-from dotenv import load_dotenv # 
+from dotenv import load_dotenv
+
+if sys.platform == 'win32':
+    try:
+        sys.stdout.reconfigure(encoding='utf-8', errors='replace')
+        sys.stderr.reconfigure(encoding='utf-8', errors='replace')
+    except Exception:
+        pass
+
 from langchain_google_genai import ChatGoogleGenerativeAI
 from langchain_core.prompts import ChatPromptTemplate
 # Ensure config.py or this file calls load_dotenv()
@@ -15,9 +24,9 @@ ranker = Ranker(model_name="ms-marco-TinyBERT-L-2-v2", cache_dir="opt_models")
 
 # DEBUG: Verify the key is actually loaded
 if not API_KEY:
-    print("❌ ERROR: API_KEY is empty! Check your .env file.")
+    print("[ERROR] API_KEY is empty! Check your .env file.")
 else:
-    print(f"✅ API_KEY loaded (Starts with: {API_KEY[:4]}...)")
+    print(f"[OK] API_KEY loaded (Starts with: {API_KEY[:4]}...)")
 
 
 def rerank_results(query, retrieved_docs, top_n=5):
@@ -129,7 +138,7 @@ def is_complete_request(query):
     # Check if any complete keyword is in query
     for keyword in complete_keywords:
         if keyword in query_lower:
-            print(f"  📋 Complete request detected (keyword: '{keyword}')")
+            print(f"  [COMPLETE] Complete request detected (keyword: '{keyword}')")
             return True
     
     return False
@@ -166,8 +175,10 @@ def chatbot(query):
     """
     greetings = ['hi', 'hello', 'hey', 'good morning', 'who are you']
     if query.lower() in greetings:
+        greeting_text = "Hello! I am Academia RAG. I have indexed your university regulations and documents. How can I help you today?"
         return {
-            "response": "Hello! I am Academia RAG. I have indexed your university regulations and scripts. How can I help you today?",
+            "answer": greeting_text,
+            "response": greeting_text,
             "sources": []
         }
 
@@ -181,7 +192,7 @@ def chatbot(query):
     # 0. Extract Semester from Query
     target_semester = extract_semester_from_query(query)
     if target_semester:
-        print(f"📚 Detected semester: {target_semester}")
+        print(f"  [SEMESTER] Detected semester: {target_semester}")
 
     # 1. Similarity Search (k=20 balanced for speed + quality)
     candidates = database.text_db.similarity_search(query, k=20)
@@ -249,7 +260,6 @@ def chatbot(query):
     USER QUESTION: {query}
     """)
 
-    print("\nAPI_KEY:\n", API_KEY )
     llm = ChatGoogleGenerativeAI(model="gemini-2.5-flash", api_key=API_KEY)
     chain = prompt | llm
     

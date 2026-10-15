@@ -1,19 +1,23 @@
 import os
+import sys
 import threading
-from flask import send_file
-from flask import send_from_directory
-from flask import Flask, request, jsonify
+
+if sys.platform == 'win32':
+    try:
+        sys.stdout.reconfigure(encoding='utf-8', errors='replace')
+        sys.stderr.reconfigure(encoding='utf-8', errors='replace')
+    except Exception:
+        pass
+
+from flask import send_file, send_from_directory, abort, Flask, request, jsonify
 from flask_cors import CORS
 import database
 import engine
 import watcher
 from config import DEVICE
-from flask import send_from_directory, abort
 from urllib.parse import unquote
 import sqlite3
-from flask import request, jsonify
 from werkzeug.security import check_password_hash
-import os
 
 app = Flask(__name__)
 CORS(app, resources={r"/*": {"origins": "*"}}) # Explicitly allow all origins for local dev
@@ -30,7 +34,7 @@ def login():
     password = data.get('password')
 
     # 1. Connect to the real database file
-    conn = sqlite3.connect('users.db')
+    conn = sqlite3.connect(os.path.join(SCRIPT_DIR, 'users.db'))
     cursor = conn.cursor()
     
     # 2. Search for the user
@@ -73,9 +77,10 @@ def handle_chat():
         return jsonify({"error": "No query provided"}), 400
     try:
         result = engine.chatbot(user_query)
-        return jsonify({"response": result.get("answer"), "sources": result.get("sources", [])})
+        ans = result.get("answer") or result.get("response", "")
+        return jsonify({"response": ans, "sources": result.get("sources", [])})
     except Exception as e:
-        print(f"🔥 CHATBOT CRASHED: {e}") # Add this line!
+        print(f"[ERROR] CHATBOT CRASHED: {e}")
         import traceback
         traceback.print_exc() # This will show exactly which line failed
         return jsonify({"error": str(e)}), 500
@@ -157,8 +162,8 @@ def download_file(filename):
     # 1. Decode the URL (turns %20 back into spaces)
     decoded_name = unquote(filename)
     
-    # 2. Your EXACT Data directory
-    data_dir = r"C:\Users\shrij\Desktop\desktop\minor 6th sem\talos\Talos_RAG\Data"
+    # 2. Target Data directory
+    data_dir = DATA_DIR
     
     # 3. Check if file actually exists before sending
     file_path = os.path.join(data_dir, decoded_name)

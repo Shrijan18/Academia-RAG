@@ -7,11 +7,11 @@ import engine
 import watcher
 from config import DEVICE
 
-def print_banner():
+def print_banner(data_dir):
     print("\n" + "="*50)
     print("TALOS RAG BACKEND - ACTIVE")
     print(f"Hardware: {DEVICE}")
-    print(f"Watcher: ./data")
+    print(f"Watcher: {data_dir}")
     print("Type your question or 'exit' to quit.")
     print("Type 'status' to see indexed files.")
     print("="*50 + "\n")
@@ -34,7 +34,7 @@ def show_status():
 
 def main():
     # 1. Ensure Data Directory exists
-    data_dir = "./data"
+    data_dir = database.DEFAULT_DATA_DIR
     if not os.path.exists(data_dir):
         os.makedirs(data_dir)
 
@@ -50,7 +50,7 @@ def main():
     )
     watcher_thread.start()
 
-    print_banner()
+    print_banner(data_dir)
 
     # 4. Interactive Command Loop
     while True:
