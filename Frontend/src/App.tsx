@@ -11,7 +11,7 @@ import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { vscDarkPlus, oneLight } from 'react-syntax-highlighter/dist/esm/styles/prism';
-import { chatService, ChatResponse, Source, SystemStatus, InventoryItem } from './services/api';
+import { chatService, ChatResponse, Source, SystemStatus, InventoryItem, API_BASE_URL } from './services/api';
 
 // // Define the types
 type Role = 'student' | 'teacher' | 'admin';
@@ -108,7 +108,7 @@ export default function App() {
 
   const submitLogin = async () => {
     try {
-      const response = await fetch('http://localhost:8000/api/login', {
+      const response = await fetch(`${API_BASE_URL}/api/login`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ username, password })
@@ -1052,15 +1052,15 @@ export default function App() {
 
                             <div className="mt-4">
                               <a
-                                /* We extract just the filename from the full path to send to our new route */
-                                href={`http://localhost:8000/download/${msg.metadata.source.split('\\').pop()}`}
+                                /* We extract just the filename from the path to send to the download route */
+                                href={`${API_BASE_URL}/download/${msg.metadata.source.replace(/\\/g, '/').split('/').pop()}`}
                                 className="bg-[var(--accent)] p-2 rounded-lg text-sm flex items-center gap-2 transition-all hover:opacity-90 w-fit"
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                download // This forces the browser to download the file
+                                download
                               >
                                 <Download size={14} />
-                                Download Official {msg.metadata.source.split('\\').pop()}
+                                Download Official {msg.metadata.source.replace(/\\/g, '/').split('/').pop()}
                               </a>
                             </div>
                           </div>

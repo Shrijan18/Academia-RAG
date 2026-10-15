@@ -175,6 +175,9 @@ def download_file(filename):
         print(f"DEBUG: File not found at {file_path}")
         return f"File '{decoded_name}' not found on BIT Server.", 404
 
+# Initialize knowledge base and database upon server startup
+startup_logic()
+
 if __name__ == '__main__':
-    startup_logic()
-    app.run(host='0.0.0.0', port=8000, debug=False)
+    port = int(os.environ.get("PORT", 8000))
+    app.run(host='0.0.0.0', port=port, debug=False)

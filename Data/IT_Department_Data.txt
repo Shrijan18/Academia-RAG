@@ -1,0 +1,637 @@
+
+1.  Department Overview
+
+    -   Establishment year
+	The Department of Information Technology was established in the year 2000.
+	The Department of Information Technology was established in the year 2000 with B.E course.
+
+    -   Affiliation details
+	Affiliated to Chhattisgarh Swami Vivekananda Technical University, Bhilai.
+
+    -   Accreditation details
+	Accredited by All India Council of Technical Education, New Delhi.
+	The four-year degree course is accredited by the All India Council for Technical Education and had earlier been affiliated with Pt. Ravishankar Shukla 	University since 2000, followed by affiliation to Chhattisgarh Swami Vivekananda University since 2005.
+
+    -   Brief introduction
+	Information Technology meets the hardware aspects of production with an in-depth knowledge of the software. The stretch of real-time requirements and technical 	know-how has created an immense requirement for professionals in the field of information technology. The course focuses on outpouring technical competence to 	students to work in the IT sector, to engage them in life-long learning, to make them communicate effectively, and to exhibit leadership skills.
+
+
+2.  Vision Statement
+	To achieve global standards of Education, Research and Innovation in Information Technology to meet the current challenges of modern computing industry.
+
+3.  Mission Statements
+	M1:To achieve Academic Excellence by providing need based quality training through Experienced Faculties in the field of Information Technology.
+	M2:To maintain state-of-the-art facilities and laboratories for continuous upgradation by applying Pedagogical Tools for faculty and students.
+	M3:To incorporate Research and Development activities through continuous learning based on Real-time Projects and Innovations.
+	M4:To develop Entrepreneurship skills, Ethical values, and Extracurricular caliber for holistic development of students.
+
+4.  Program Educational Objectives (PEO)
+	PEO1:To enable graduates to employ Information Technology for ModernEngineering applications in context of Quality, Security, and Cost-effectiveness.
+	PEO2:Able to correlate Basic Sciences with Engineering and apply the knowledge in Multi-disciplinary Technologies.
+	PEO3:To prepare Graduates with Entrepreneurship skills, Research attributes and Motivation for higher studies.
+
+5.  Program Specific Outcomes (PSO)
+	PSO1 – The ability to analyze the problems and develop real time solutions using innovative methods and open-ended programming environments to deliver high 	quality product
+	PSO2 – To demonstrate the knowledge of computer networks, communications, operating systems, and hardware technologies.
+	PSO3 – The ability to pursue advanced studies and take the lead in innovation and entrepreneurship.
+
+6.  Program Outcomes (PO)
+
+7.  Head of Department (HOD) Details
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Dr. (Mrs.) Ani Thomas is Professor and Head of the Department of Information Technology in Bhilai Institute of Technology, Durg. She obtained her Masters degree in Computer Applications from Govt Engg. College, Raipur and PhD degree in 2013 from Chhattisgarh Swami Vivekananda University. Dr. Thomas is Researcher focusing her research in exploring text mining techniques for machine learning. She has many reputed publications in her credit: 13 in international journals, 2 in national journals, 9 in International Conferences and 19 in National Conferences. She has won one Best Paper Award in national Conf. and secured Second position in TAC Knowledge Base Population Track conducted by NIST, govt of USA. She has Organized Workshop and delivered Keynote in ACM SIGSOFT Conference, held at Jaipur in Feb this year. She is nominated as a DRC member of the Institute and member of the Board of Studies, Examination Committee and syllabus formation committee at CSVTU.
+
+Dr. Ani Thomas
+
+Employee ID	10056
+Date of Joining	12-11-1999
+Nature of Association	Regular
+Department	Information Technology
+Designation	Professor & Head
+Educational Qualification	Ph.D., MCA, B.Sc (Maths)
+E-Mail	ani.thomas@bitdurg.ac.in
+Contact Number	Extension No. - 320 , Global Directory No. -8111
+Areas of Interest
+Text Mining, Machine learning
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+8.  Faculty Details
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Dr. Jyothi Pillai is a Professor at Bhilai Institute of Technology (BIT) Durg. She did her B.Sc., MCA and Ph.D. in Computer Science& Information Technology. She has joined Bhilai Institute of Technology (BIT) Durg in the capacity of Associate Professor in 2001. She has presented and published 30 research papers in National /International Conferences and impact factor Journals. She has been invited in various conferences and the findings of her research has been prese4nted in National and International conferences. Her research area mainly focuses on Data Mining, Soft Computing Software Engineering, and Big Data Analytics. She has organized many National level Conferences. Presently Dr. Jyothi Pillai is guiding 03 PhD scholars at CSVTU, Bhilai. She is a Life Member of Indian Society for Technical Education (ISTE) from the year 2004. She has done her Ph.D. in Computer Science & Information Technology, from Pt. Ravishankar Shukla University, Raipur, Chhattisgarh, India, under the guidance of Prof. O.P.Vyas, International Institute of Technology, Raipur, Chhattisgarh, India (Thesis entitled, “EXPLORATION OF SOFT COMPUTING APPROACHES IN TEMPORAL ITEMSET UTILITY MINING"). Doctorate Degree was awarded to Dr. Jyothi Pillai in August 2016.
+
+Dr. Jyothi Pillai
+
+Employee ID	10070
+Date of Joining	03-09-2001
+Nature of Association	Regular
+Department	Information Technology
+Designation	Professor
+Educational Qualification	Ph.D., MCA, B.Sc. (Mathematics)
+E-Mail	jyothi.pillai@bitdurg.ac.in
+Contact Number	Extension No.: 512, Global Directory No.: 8227
+Areas of Interest
+Data Mining, Soft Computing, Big Data Analytics, Business Intelligence
+
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Associate Professor in BIT, Durg with 20 years of experience. I have completed my Bachelor of Engineering in Information Technology from Pt. Ravishankar Shukla University in the year 2004, Master of Technology in Computer Science in the year 2009, completed Ph.D.(C.S.E) in 2023 .
+
+Dr. Vikas Pandey
+
+Employee ID	10115
+Date of Joining	30-05-2005
+Nature of Association	Regular
+Department	Information Technology
+Designation	Associate Professor
+Educational Qualification	Ph. D (C.S.E) , M.E. (C.T.A), B.E.(I.T) .
+E-Mail	vikas.pandey@bitdurg.ac.in
+Contact Number	Extension No. -324, Global Directory No. -8216
+Areas of Interest
+Machine Translation
+
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+I am Assistant Professor at Bhilai Institute of Technology, Durg. I have completed my Master of Engineering[ME] in VLSI Design and Bachelors of Engineering in Information Technology[IT].
+
+Mrs. K Subhashini Spurjeon
+
+Employee ID	10125
+Date of Joining	10-09-2005
+Nature of Association	Regular
+Department	Information Technology
+Designation	Assistant Professor
+Educational Qualification	Ph.D. (Pursuing) M.E.(VLSI DESIGN), B.E.(INFORMATION TECHNOLOGY), DIPLOMA((ELECTRICAL ENGINEERING)
+E-Mail	k.subhashini@bitdurg.ac.in
+Contact Number	Extension No. -325, Global Directory No. -8219
+Areas of Interest
+Natural language Processing , Machine Learning. Text mining, Digital design, and Embedded systems, Image processing, Internet of Things.
+
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Associate Professor in BIT, Durg with 18 years of experience. I have completed my Bachelor of Engineering in Information Technology from Pt. Ravishankar Shukla University in the year 2005, Master of Technology in Computer Science in the year 2010, completed Ph.D.(Electronics) in year 2023
+
+Dr. Rajiv Pathak
+
+Employee ID	10137
+Date of Joining	11-05-2006
+Nature of Association	Regular
+Department	Information Technology
+Designation	Associate Professor
+Educational Qualification	Ph. D.(Electronics), M.E.(VLSI Design), B.E.(Information Technology).
+E-Mail	rajiv.pathak@bitdurg.ac.in
+Contact Number	Extension No. -324, Global Directory No. -8217
+Areas of Interest
+Cellular & Wireless Communication
+
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+I am Assistant Professor at Bhilai Institute of Technology, Durg. I have completed my Master of Technology in Computer Science & Engineering and Bachelor of Engineering in Information Technology. Currently pursuing PhD in Computer Science and my research area is Cyber Security.
+
+Mr. Amrendra Kumar Singh
+
+Employee ID	10148
+Date of Joining	06-09-2006
+Nature of Association	Regular
+Department	Information Technology
+Designation	Assistant professor
+Educational Qualification	PhD(Pursuing), M.E. (CSE), B.E. (IT)
+E-Mail	amrendra.singh@bitdurg.ac.in
+Contact Number	Extension No. -325, Global Directory No. -8218
+Areas of Interest
+Cyber Security, Cryptography & Network Security, Computer Graphics, Web Application & Development.
+
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Mrs. Babita Verma is Assistant Professor ,Department of Information Technology in Bhilai Institute of Technology, Durg. She obtained her Masters degree in Computer Technology and Applications from SSCE, Bhilai from Chhattisgarh Swami Vivekananda University. She has many reputed publications in her credit: 3 in international journals, 5 in International Conferences and 7 in National Conferences. As Member in Board of Studies representing the Department of Information Technology at Chhattisgarh Swami Vivekanand Technical University, Bhilai, (C.G.) since 2011. She is Editorial board member (Associate Editor) of International Journal of Management, IT and engineering (ISSN No. 2249-0558) (2011-2012); International Journal of Marketing and Technology (ISSN No. 2249-1058) (2011-2012).
+
+Mrs. Babita Verma
+
+Employee ID	10142
+Date of Joining	26-06-2006
+Nature of Association	Regular
+Department	Information Technology
+Designation	Assistant Professor
+Educational Qualification	PhD (Pursuing), M.E(C.T.A), B.E. (I.T.), Diploma(C.S)
+E-Mail	babita.verma@bitdurg.ac.in
+Contact Number	Extension No. -325, Global Directory No. -8220
+Areas of Interest
+Natural Language Processing, Machine Learning. Text Mining, Data Mining, Operating System, Cryptography, Database Management System.
+
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Before joining BIT, I have completed my Master of Technology in VLSI Design and Bachelor of Engineering in Information Technology. Currently pursuing PhD in Computer Science and research area is Data Mining & Machine Learning.
+
+Mr. Toshant Kumar
+
+Employee ID	10150
+Date of Joining	08-09-2006
+Nature of Association	Regular
+Department	Information Technology
+Designation	Assistant Professor
+Educational Qualification	Phd Pursuing, M.E.(VLSI DESIGN), B.E.(INFORMATION TECHNOLOGY)
+E-Mail	toshant.kumar@bitdurg.ac.in
+Contact Number	Extension No. -325, Global Directory No. -8221
+Areas of Interest
+Data Mining & Machine Learning
+
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Mr. Raj Kumar Singh is Assistant Professor in the Department of Information Technology in Bhilai Institute of Technology, Durg. He obtained his Masters degree in Computer Science & Engineering from Chhattisgarh Swami Vivekanand Technical University in the year 2014. Mr. Singh is Researcher focusing his research in exploring IOT and Data Mining techniques. He has many reputed publications in his credit: 02 in international journals and 05 in National Conferences.
+
+Mr. Raj Kumar Singh
+
+Employee ID	10220
+Date of Joining	23-09-2009
+Nature of Association	Regular
+Department	Information Technology
+Designation	Assistant Professor
+Educational Qualification	M. Tech.(C.S.E.), B.E.(I.T), Pursuing Ph. D.
+E-Mail	rajkumar.singh@bitdurg.ac.in
+Contact Number	Extension No. -508, Global Directory No. -8223
+Areas of Interest
+IOT, Data Mining, NLP
+
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+I am Assistant Professor at Bhilai Institute of Technology, Durg. I have completed my Masters of Engineering in Computer Science & Engineering .
+
+Mr. Padmadhar Mishra
+
+Employee ID	10247
+Date of Joining	10-05-2006
+Nature of Association	Regular
+Department	Information Technology
+Designation	Assistant Professor
+Educational Qualification	Ph.D(Pursuing) M.E.(CSE)
+E-Mail	padmadhar.mishra@bitdurg.ac.in
+Contact Number	Extension No. -508, Global Directory No. -8224
+Areas of Interest
+Text Mining, IoT, Software Engineering
+
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Mrs. Riya Sharma
+
+Employee ID	10391
+Date of Joining	20-10-2023
+Nature of Association	Regular
+Department	Information Technology
+Designation	Assistant Professor
+Educational Qualification	MTech(e-Security),BTech(I.T)
+E-Mail	riya.sharma@bitdurg.ac.in
+Contact Number	Extension No. - 325
+
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+9.  Course Information
+
+    -   Degree offered (B.Tech IT)
+    -   Duration - 4 years
+    -   Intake capacity - 60
+    -   Semester structure - 8 semester in 4 years
+
+
+10. Subject / Syllabus Information
+
+    -   Semester-wise subjects
+    -   Core subjects
+    -   Electives
+
+
+
+11. Laboratory Details
+
+    -   Lab names
+    -   Equipment/software available
+Laboratory
+Sr.No.
+
+Name of the  Laboratory
+
+Name of the Important equipment
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+1
+
+IT COMPUTING LAB [EXG-03]
+
+Lenovo E73 Desktop PC: [Total -32]
+Processor: Intel(R) CoreTM i3-4170 CPU @ 3.70GHz, 3700MHz, 2 Cores
+RAM: 4 GB
+Monitor: 19” Lenovo
+Keyboard: USB Keyboard Lenovo
+Mouse: USB Mouse Lenovo
+Software: Dual Boot OS Microsoft @Windows 10 Pro. Version 20H2 and Ubuntu with all necessary Software’s
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+2
+
+IoT LAB
+[EXF-14]
+
+Lenovo Think Centre M720Tower:[Total -30]
+Processor: 8th Gen Intel® CoreTM i5
+RAM: 8 GB
+Peripherals: Keyboard, Mouse
+Display Type: Full HD, Resulution:1920x1080
+Storage Type: HDD, 1TB
+Dimension (WxDxH)mm :12.6’ x6.5’ x 16.2’
+Screen Type: LED, Screen Size :18.5”
+Graphics Solution: Intel® Integrated Graphics
+Operating System: Dual Boot OS Microsoft @Windows 10 Pro. Version 20H2 and Ubuntu with all necessary Software’s
++ All Necessary IoT Devices
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+3
+
+PROJECT LAB
+
+Lenovo E73 Desktop PC: [Total -42]
+Processor: Intel(R) CoreTM i3-4170 CPU @ 3.70GHz, 3700MHz, 2 Cores
+RAM: 4 GB
+Monitor: 19” Lenovo
+Keyboard: USB Keyboard Lenovo
+Mouse: USB Mouse Lenovo
+Software: Dual Boot OS Microsoft @Windows 10 Pro. Version 20H2 and Ubuntu with all necessary Software’s
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+4
+
+Research & Development Lab
+
+Workstation
+LENOVO  Workstation/ p410 / intel C612  Chipset / XEON E5-1607/ WIN 10 Pro,
+RAM:16.00 GB,
+Graphics Card :NVIDIA QADRO 2GB,
+Monitor: LENOVO 21.5” IPS FHD
+Borderless VGA +HDMI Processor: Intel(R) CoreTM i3-4150 CPU @ 3.50GHz
+RAM: 4.00 GB
+Hard Disk : 1.00 TB
+Monitor: 18.5” Lenovo
+Keyboard: USB Keyboard Lenovo
+Mouse: USB Mouse Lenovo
+Software: Dual Boot OS Microsoft @Windows 10 Pro. Version  and Ubuntu with all necessary Software’s+Printer: HP Laser Jet 1020 Plus+Printer: HP Laserjet P2007
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+5
+
+DIGITAL ELECTRONICS AND LOGIC DESIGN Lab
+
+DIGITAL IC TRAINER KIT,LOGIC GATE TRAINER (TYPE EE-64 & 65),COUNTER & SHIFT REGISTER TRAINER (TYPE - LTB-811),CRO (HIL),DIGITAL TRAINER KIT - MICRO LAB – II,ANALOG & DIGITAL TRAINER MODEL - XΡΟ-ΑΝΑ – DIGI,MAKE: DYANALOG DT - 1004:
+DIGITAL LAB CIRCUIT TRAINER (20-PIN 4.ZIF & 40 - PIN - ZIF Socket),Digital (Circuit Development Platform Digital Trainer Kit)                                                              
+                                                                                                                                           
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+6
+
+Communication Lab
+
+Communication trainer kits, CRO’s, Function generation, Noise generator trainer kit
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+7
+
+Data &
+Network
+Security
+Laboratory
+
+BM ThinkPad Laptops with all necessary software, Processor: Core i5/8th Gen RAM: 8.00 GB Hard Disk: 1 TB 02-LAN Trainer Kit LT-01 (TETCOS) BENCHMARK ISecurIT (Educational) 01-QualNet Simulator Lan Trainer kit (Wired and Wireless) LAN
+Trainer Kit LT-01 (BENCHMARK) 05-Desktop with all necessary software Projector: Hitachi CP RX 79 30- IRIS Processor/Radio Boards (XM2110) 20- Prototype/Data Acquisition Boards (MDA100) 10- USB PC Interface Boards (MIB520) Crimping &
+Punching tools
+Workstation
+LENOVO  Workstation/ p410 / intel C612  Chipset / XEON E5-1607/ WIN 10 Pro,
+RAM:16.00 GB,
+Graphics Card :NVIDIA QADRO 2GB,
+Monitor: LENOVO 21.5” IPS FHD
+Borderless VGA +HDMI
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+    -   Lab in-charge
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Mr. Prabhat Ghadole
+
+Employee ID	10371
+Date of Joining	14-09-2006
+Nature of Association	Regular
+Department	Information Technology
+Designation	Sr. Lab. Instructor
+Other Information
+Area of Interest
+
+Machine Learning, IoT, Management Information System, Data Analysis & Data Visualization, Organizational Behavior, Graphic Design 
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Mr. Lekhram Nirmalkar
+
+Employee ID	20325
+Date of Joining	01-07-2015
+Nature of Association	Regular
+Department	Information Technology
+Designation	Asstt. Lab. Instructor
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+12. Staff
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Mr. M. RAMANA REDDY
+
+Employee ID	20185
+Date of Joining	01-01-2002
+Nature of Association	Regular
+Department	Information Technology
+Designation	ATTENDANT
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+13. Events & Activities
+
+    -   Workshops
+    -   Seminars
+    -   Technical events
+    -   Competitions
+
+14. Achievements
+
+    -   Student achievements
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+S.No.  
+DETAILS
+
+1
+Three students presented Research Paper on BEE, DRONE and won Best Paper Award in a Conference organized by RSR RUNGTA ENGG. COLLEGE, Bhilai.
+
+2
+Three students presented Research Paper on BIG DATA MEETS SMALL SENSORS IN PRECISION AGRICULTURE and won Best Paper Award in a Conference organized by RSR RUNGTA ENGG. COLLEGE, Bhilai.
+
+3
+Three students presented Research Paper on “AKSHARA” and secured the First Position in a Conference organized by MAULANA AZAD NATIONAL INSTITUTE OF TECHNOLOGY.
+
+4
+Six students secured a position among top 12 teams in Smart India Hackathon 2017.
+
+5
+One student secure 1st position in Youth Festival 2015 CSVTU Bhilai.
+
+6
+Student attended Workshop on ETHICAL HACKING, AIESEC, IIT, Delhi
+
+7
+Student attended India Innovative Initiative 2014, AIESEC, IIT, Delhi
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+    -   Faculty achievements
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+1 
+Dr. Ani Thomas, recognized best paper for the session at  Technovision 2007,  C.G. India
+
+2
+Mr. Sarang Pitale,  Special Mention Award,  CSI National Young IT Professional Awards, 2012, India
+
+3
+Mr. Sarang Pitale,  Young scientist Award in Engineering & Technology,  CCOST young Scientist Award 2012,  C.G. India
+
+4
+Dr. Jyothi Pillai,  Research Collaboration,  Manchester Metropolitan University, U.K., 2013
+
+5.
+Dr. Ani Thomas, 2nd Position in TAC software Contest,  School of Information Science, Technology and Arts 2013,  University of Arizona, Tucson, AZ, USA
+
+6.
+Mrs. Babita Verma, SET Examination 2013, Qualified Chhattisgarh Vyavsayik Pariksha Mandal,  Raipur, India
+
+7.
+Dr. Ani Thomas, Workshop Organizer & Keynote Speaker  in the Workshop Track of 10th Innovations in Software Engineering Conference, (ISEC) 2017 LMN Institute of Information Technology, Jaipur, India
+
+8.
+Dr. Jyothi Pillai, Distinguished Woman in Science 2018, Venus International Foundation, Tamilnadu, India
+
+9.
+Dr. Ani Thomas, Technical program committee member in IEEE Conference on Advanced Computing & Intelligent Engineering   (ICACIE-2018), Sisha ‘O’ Anushandhan Deemed University Bhubaneswar India
+
+10.
+Dr. Ani Thomas, Expert Talk on Career and Professional Development for Future Aspirers, 2018, Chhattisgarh Council of Science & Technology, Raipur
+
+11.
+Dr. Ani Thomas, Faculty Coordinator in de-en-quete on behalf of  COMET 2018, IIT (BHU) Varanasi
+
+12.
+Mr. Raj Kumar Singh, Faculty Coordinator in de-en-quete on behalf of COMET, 2018, IIT (BHU) Varanasi, India
+
+13.
+Mrs. Babita Verma, Coordinated an Inter Student Branch Debate Competition Organized Jointly by IEEE CG Division, 2018, Bhilai Institute of Technology, Durg (C.G.)
+
+14.
+Mr. Vikas Pandey, Technical Talk on Overview of Artificial Intelligence 2018,  Research Institute of IT4Innovation Centre of Excellence in Silesian University in OPAVA
+
+15.
+Dr. Ani Thomas,  Faculty Coordinator in de-en-quete on behalf of COMET, 2019, IIT (BHU) Varanasi, India
+
+16.
+Mr. Amrendra Kumar Singh,  Faculty Coordinator in de-en-quete on behalf of COMET, 2019, IIT (BHU) Varanasi, India
+
+17.
+Mrs. Babita Verma, Coordinated on ICT Based Teaching & Learning methodology for Students of Chhattisgarh, 2019, Association with Spoken Tutorial, IIT Bombay
+
+18.
+Dr. Ani Thomas, Member of Advisory Committee in PIMSE, 2019, Poona Institute of Management Sciences & Entrepreneurship, Pune, India
+
+19.
+Mrs. Babita Verma, UGC-NET Qualified, 2019, National Testing Agency, Delhi, India
+
+20.
+Mr. Sarang Pitale & Mr. Toshant Kumar, Organized workshop on Raspberry and Aurduino day 2019,  project competition in association with Raspberry foundation UK
+    -   Awards & recognitions
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+    -   Batchwise Topper list:
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+YEAR 	STUDENT NAME 		PERCENTAGE
+
+2004	Ku. NEHA GUMASTA	81.70
+
+2005	SHASHWAT AGRAWAL	83.345
+
+2006	Ku. NIDA TAHIR		78.57
+
+2007	Ku SWETA AGRAWAL	8.76 (CPI)
+
+2008	Ku. GARIMA INDURKHYA	8.40 (CPI)
+
+2009	Ku. RITIKA GUPTA	82.84
+
+2010	Ku. USHA YADU		79.43
+
+2011	Ku. VINITA THAWRANI	85.64
+
+2012	Ku. PUJA PANDEY		89.28
+
+2013	Ku. SRISHTI MONGA	82.2
+
+2014	AVIRAL SHRIVASTAVA	81.47
+
+2015	Ku. SHWETA SONI		82.96
+
+2016	Ku. RUPAL BHATT		80.03
+
+2017	Ku. ANJALI RAGHU	86.07
+
+2018	Ku. RIYA SHARMA		81.17
+
+2019	Ku. NEESHA SHARMA	84.16
+
+2020	Ku. YASHI DEWANGAN	88.04
+
+2021	Ku. KUNIKA GUPTA	86.94
+
+2022	PRAJWAL AGRAWAL		87.96
+
+2023	Ku. PRONOMITA CHAKRABORTY	91.07
+
+2024	KISHAN KUMAR		84.04
+
+2025	JANESH SINGHANIA	83.41
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+15. Placement Information (Department Specific)
+
+    -   Placement statistics
+    -   Recruiters
+    -   Internship opportunities
+
+16. Notices & Announcements
+
+    -   Recent updates
+    -   Academic notices
+    -   Examination notices
+
+17. Internship & Training Information
+
+18. Research & Publications
+
+    -   Ongoing research
+    -   Published papers
+    -   Funded projects
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Sl. No.
+
+Title of Research Project
+
+Name of PI/Co-PI/ Joint PI
+
+Duration of the Project
+
+Total Grants Received
+(in Lakhs)
+
+Name of the funding agency
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+1
+
+Opinion Mining of tourism sector of India using Machine Learning algorithm from reviews collected through social media
+
+Dr. Smita Selot, SSTC Bhilai / Dr. Ani Thomas, BIT Durg
+
+2019 - 2020
+
+3.0
+
+TEQIP - III, CSVTU, Bhilai
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+2
+
+To facilitate the sales of rural products and arts of Chhattisgarh through E-Commerce using Data Mining, Data Science and Soft Computing Techniques
+
+Mr. Aditya Tiwari, BIT, Raipur / Dr. Jyothi Pillai, BIT, Durg
+
+2019 - 2020
+
+1.2
+
+TEQIP - III, CSVTU , Bhilai
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+3
+
+An ICT approach towards enhancing english speaking skills
+
+Dr. Seema Arora/ Mr. Amrendea Singh/Dr. Madhu Karma
+
+2019 - 2020
+
+1.5
+
+TEQIP - III, CSVTU , Bhilai
+
+Total: 5.7 lakhs
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+19. Student Support Information
+
+    -   Mentorship system
+    -   Clubs & technical groups
+    -   Grievance contact
+
+20. Timetable (if available)
+
+21. Contact Information
+
+    -   Department office contact
+    -   Email
+    -   Location within campus- BLOCK-D
+
+This structured data will allow the chatbot to answer 80–90% of student
+queries effectively.
