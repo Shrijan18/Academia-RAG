@@ -85,14 +85,17 @@ def startup_logic():
     print("Initializing Vector Databases...")
     database.init_dbs(data_dir=DATA_DIR)
     
-    # Start watcher in background
-    watcher_thread = threading.Thread(
-        target=watcher.start_file_watcher, 
-        args=(DATA_DIR,), 
-        daemon=True
-    )
-    watcher_thread.start()
-    print(f"Background File Watcher Started on: {DATA_DIR}")
+    # Start watcher in background only in local development (conserve memory on cloud)
+    if not os.environ.get("RENDER"):
+        watcher_thread = threading.Thread(
+            target=watcher.start_file_watcher, 
+            args=(DATA_DIR,), 
+            daemon=True
+        )
+        watcher_thread.start()
+        print(f"Background File Watcher Started on: {DATA_DIR}")
+    else:
+        print("[INFO] Render cloud environment: File watcher disabled to conserve memory.")
 
 @app.route('/chat', methods=['POST'])
 def handle_chat():

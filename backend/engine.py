@@ -17,11 +17,8 @@ load_dotenv()
 
 from config import API_KEY 
 import database
-from flashrank import Ranker, RerankRequest
-
-# Initialize FlashRank (Optimized for CPU speed)
-SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
-ranker = Ranker(model_name="ms-marco-TinyBERT-L-2-v2", cache_dir=os.path.join(SCRIPT_DIR, "opt_models"))
+import re
+import gc
 
 # DEBUG: Verify the key is actually loaded
 if not API_KEY:
@@ -32,33 +29,61 @@ else:
 
 def rerank_results(query, retrieved_docs, top_n=5):
     """
-    High-speed CPU reranking using FlashRank.
+    Zero-RAM High-Performance Reranker.
+    Uses FAISS semantic retrieval order augmented with keyword density matching.
+    Prevents ONNX Runtime memory spikes that crash 512MB RAM cloud instances.
     """
     if not retrieved_docs:
         return [], []
-        
-    # Convert LangChain docs to FlashRank format
-    passages = []
+
+    # Optional cloud rerank via Cohere if API key is provided (uses 0 MB local RAM)
+    cohere_key = os.getenv("COHERE_API_KEY")
+    if cohere_key:
+        try:
+            import cohere
+            co = cohere.Client(cohere_key)
+            texts = [d.page_content for d in retrieved_docs]
+            cohere_res = co.rerank(model="rerank-english-v3.0", query=query, documents=texts, top_n=top_n)
+            reranked = [retrieved_docs[r.index] for r in cohere_res.results]
+            scores = [float(r.relevance_score) for r in cohere_res.results]
+            return reranked, scores
+        except Exception as e:
+            print(f"[WARN] Cohere rerank unavailable: {e}")
+
+    # Optional local FlashRank (only if user explicitly opts-in via ENABLE_FLASHRANK=true)
+    if os.getenv("ENABLE_FLASHRANK", "false").lower() == "true":
+        try:
+            global _lazy_ranker
+            if '_lazy_ranker' not in globals() or _lazy_ranker is None:
+                from flashrank import Ranker
+                SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
+                _lazy_ranker = Ranker(model_name="ms-marco-TinyBERT-L-2-v2", cache_dir=os.path.join(SCRIPT_DIR, "opt_models"))
+            from flashrank import RerankRequest
+            passages = [{"id": i, "text": d.page_content, "meta": d.metadata} for i, d in enumerate(retrieved_docs)]
+            results = _lazy_ranker.rerank(RerankRequest(query=query, passages=passages))
+            reranked = [retrieved_docs[r['id']] for r in results[:top_n]]
+            scores = [float(r['score']) for r in results[:top_n]]
+            return reranked, scores
+        except Exception as e:
+            print(f"[WARN] FlashRank fallback: {e}")
+
+    # Zero-RAM Smart Hybrid Ranker:
+    # Leverages vector proximity from FAISS with BM25-style query keyword density
+    query_terms = set(re.findall(r'\w+', query.lower()))
+    scored_docs = []
+    total = len(retrieved_docs)
     for i, doc in enumerate(retrieved_docs):
-        passages.append({
-            "id": i,
-            "text": doc.page_content,
-            "meta": doc.metadata
-        })
-    
-    rerank_request = RerankRequest(query=query, passages=passages)
-    results = ranker.rerank(rerank_request)
-    
-    reranked_docs = []
-    scores = []
-    
-    for res in results[:top_n]:
-        # Map back to original docs using the result text
-        original_doc = next(d for d in retrieved_docs if d.page_content == res['text'])
-        reranked_docs.append(original_doc)
-        scores.append(res['score'])
-        
-    return reranked_docs, scores
+        doc_text = doc.page_content.lower()
+        doc_terms = set(re.findall(r'\w+', doc_text))
+        overlap = len(query_terms.intersection(doc_terms)) / max(1, len(query_terms))
+        # Vector score based on FAISS ranking position
+        vector_rank_score = 1.0 - (i / max(1, total)) * 0.35
+        final_score = round((vector_rank_score * 0.65) + (overlap * 0.35), 4)
+        scored_docs.append((doc, final_score))
+
+    scored_docs.sort(key=lambda x: x[1], reverse=True)
+    selected = scored_docs[:top_n]
+    return [item[0] for item in selected], [item[1] for item in selected]
 
 # Global Memory Storage (Short-Term Memory)
 chat_history = []
@@ -283,10 +308,10 @@ def chatbot(query):
             "metadata": doc.metadata
         } for doc, score in zip(reranked_docs, scores)]
 
-
         print("\nresponse.content:\n", response.content )
-
         return {"answer": response.content, "sources": sources}
     except Exception as e:
         print("\nresponse.content:\n", str(e) )
         return {"error": str(e), "answer": "Generation Error.", "sources": []}
+    finally:
+        gc.collect()

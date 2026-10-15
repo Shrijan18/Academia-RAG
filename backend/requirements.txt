@@ -17,9 +17,7 @@ langchain-google-genai
 watchdog
 beautifulsoup4
 requests
-pymupdf
 pdfplumber
 python-dotenv
 trafilatura
 chardet
-flashrank

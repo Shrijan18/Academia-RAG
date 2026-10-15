@@ -1,15 +1,10 @@
 import os
 import re
 import pandas as pd
-import librosa
 import numpy as np
 import torch
 import requests
-import pdfplumber
 import chardet
-import trafilatura
-from bs4 import BeautifulSoup
-from urllib.parse import urljoin
 from collections import deque
 from langchain_core.documents import Document
 from langchain_text_splitters import RecursiveCharacterTextSplitter
@@ -35,6 +30,7 @@ def load_pdf(file_path):
     print(f"Processing PDF: {file_path}")
     
     try:
+        import pdfplumber
         with pdfplumber.open(file_path) as pdf:
             total_pages = len(pdf.pages)
             print(f"  Pages to process: {total_pages}")
@@ -165,6 +161,7 @@ def load_audio(file_path):
             fp16=(DEVICE.type == "cuda") 
         )
 
+        import librosa
         audio, sr = librosa.load(file_path, sr=16000)
         max_samples = 16000 * 30 
         if len(audio) > max_samples:
@@ -246,6 +243,10 @@ def extract_text_iteratively(start_url, max_pages=10, max_depth=1):
     headers = {
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36"
     }
+
+    import trafilatura
+    from bs4 import BeautifulSoup
+    from urllib.parse import urljoin
 
     splitter = RecursiveCharacterTextSplitter(chunk_size=1000, chunk_overlap=100)
 
