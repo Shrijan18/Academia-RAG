@@ -206,28 +206,29 @@ def init_dbs(data_dir=None):
     if data_dir is None:
         data_dir = DEFAULT_DATA_DIR
         
-    # FIX: Only call load_db if the FAISS folder actually exists
-    # Replace DB_PATH with the folder name (usually 'faiss_index')
     if os.path.exists(DB_PATH):
         try:
             load_db()
         except Exception as e:
-            print(f"⚠️ Could not load existing DB: {e}. Starting fresh ingestion.")
+            print(f"[WARN] Could not load existing DB: {e}. Starting fresh ingestion.")
     else:
-        print("🚀 No existing database found. Initializing new Knowledge Base...")
+        print("[INFO] No existing database found. Initializing new Knowledge Base...")
 
     if not os.path.exists(data_dir):
         os.makedirs(data_dir)
         print(f"Created data directory: {data_dir}")
         
-    print(f"Initializing Knowledge Base from: {data_dir}")
-    for root, _, files in os.walk(data_dir):
-        for file in files:
-            file_path = os.path.join(root, file)
-            # This handles the 'Ingestion' phase of your RAG pipeline
-            add_file_to_db(file_path) 
+    # Only scan disk if DB is not already loaded
+    if text_db is None:
+        print(f"Initializing Knowledge Base from: {data_dir}")
+        for root, _, files in os.walk(data_dir):
+            for file in files:
+                file_path = os.path.join(root, file)
+                add_file_to_db(file_path) 
+    else:
+        print(f"Knowledge Base ready with {text_db.index.ntotal} vectors.")
     
     # Final safety check to prevent frontend crashes
     if text_db is None:
         text_db = FAISS.from_texts(["System initialized: Knowledge Base is empty."], embeddings)
-        print("✅ Empty Vector Store created.")
+        print("[OK] Empty Vector Store created.")
