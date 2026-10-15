@@ -24,10 +24,10 @@ WORKDIR /app/backend
 
 # Environment variables
 ENV PYTHONUNBUFFERED=1
-ENV PORT=8000
+ENV PORT=10000
 
 # Expose port
-EXPOSE 8000
+EXPOSE 10000
 
 # Launch Gunicorn server
-CMD ["sh", "-c", "exec gunicorn --bind 0.0.0.0:${PORT:-8000} --workers 1 --timeout 180 api:app"]
+CMD ["sh", "-c", "exec gunicorn --bind 0.0.0.0:${PORT:-10000} --workers 1 --threads 4 --timeout 180 api:app"]

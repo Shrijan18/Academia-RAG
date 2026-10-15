@@ -20,7 +20,24 @@ import sqlite3
 from werkzeug.security import check_password_hash
 
 app = Flask(__name__)
-CORS(app, resources={r"/*": {"origins": "*"}}) # Explicitly allow all origins for local dev
+app.url_map.strict_slashes = False
+CORS(app, resources={r"/*": {"origins": "*"}})
+
+@app.before_request
+def handle_preflight():
+    if request.method == "OPTIONS":
+        response = app.make_default_options_response()
+        response.headers["Access-Control-Allow-Origin"] = "*"
+        response.headers["Access-Control-Allow-Methods"] = "GET, POST, PUT, DELETE, OPTIONS"
+        response.headers["Access-Control-Allow-Headers"] = "Content-Type, Authorization, X-Requested-With"
+        return response
+
+@app.after_request
+def add_cors_headers(response):
+    response.headers["Access-Control-Allow-Origin"] = "*"
+    response.headers["Access-Control-Allow-Methods"] = "GET, POST, PUT, DELETE, OPTIONS"
+    response.headers["Access-Control-Allow-Headers"] = "Content-Type, Authorization, X-Requested-With"
+    return response
 
 # Use robust absolute pathing
 SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__)) 
